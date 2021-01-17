@@ -7,23 +7,19 @@ export default function App() {
   const [isSignup, setIsSignup] = useState(false);
   const [user, setUser] = useState({});
 
-  console.log(user);
 
   return (
     <div>
       <Router>
         <Switch>
+         
           <Route path="/">
-            <MainForm />
-          </Route>
-
-          {/* <Route path="/">
             {!isSignup ? (
               <SignUp setIsSignup={setIsSignup} setUser={setUser} />
             ) : (
               <MainForm userData={user} />
             )}
-          </Route> */}
+          </Route>
         </Switch>
       </Router>
     </div>

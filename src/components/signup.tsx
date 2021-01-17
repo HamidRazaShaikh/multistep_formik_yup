@@ -1,5 +1,4 @@
 import React from "react";
-import Background from "./../dddd.jpg";
 
 import {
   TextField,
@@ -8,13 +7,16 @@ import {
   Button,
   Typography,
   CssBaseline,
-  makeStyles,
 } from "@material-ui/core";
+import MenuAppBar from "./nav";
+
+
+import { makeStyles } from "@material-ui/core/styles";
 
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
   container: {
     borderStyle: "solid",
     borderWidth: 2,
@@ -54,15 +56,14 @@ const SignUp: React.FC<Props> = ({ setIsSignup, setUser }) => {
       .min(6, "password is too short.")
       .max(20, "password is too long.")
       .required("this field is required."),
-      
   });
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      
-    >
+    <div>
+              <MenuAppBar />
+
+
+<Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.container}>
         <div className={classes.paper}>
@@ -80,11 +81,10 @@ const SignUp: React.FC<Props> = ({ setIsSignup, setUser }) => {
             setIsSignup(true);
             const { firstName, lastName, email } = values;
             setUser({ firstName, lastName, email });
-            console.log(values);
           }}
         >
           {({ errors, handleChange, touched }) => (
-            <Form className={classes.form}>
+            <Form className={classes.form} autoComplete="off">
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <Field
@@ -164,7 +164,7 @@ const SignUp: React.FC<Props> = ({ setIsSignup, setUser }) => {
                 variant="contained"
                 fullWidth
                 color="primary"
-                style={{ margin: "10px 0 5px" }}
+                style={{ margin: "10px 0 5px", backgroundColor: "#78909C" }}
               >
                 Sign Up
               </Button>
@@ -173,6 +173,9 @@ const SignUp: React.FC<Props> = ({ setIsSignup, setUser }) => {
         </Formik>
       </div>
     </Container>
+
+    </div>
+    
   );
 };
 
