@@ -39,4 +39,4 @@ jobs:
       - name: Install Surge
         run: npm install -g surge
       - name: Run surge
-        run: surge ./build shopping_basket_reduxToolkit.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+        run: surge ./build multi_form_formik_yup.surge.sh --token ${{ secrets.SURGE_TOKEN }}
