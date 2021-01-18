@@ -142,7 +142,7 @@ const MainForm: React.FC<Props> = ({ userData }) => {
                       name="employed"
                       type="checkbox"
                       component={CheckboxWithLabel}
-                      label="Are you employed?"
+                      Label={{ label: "Are you employed?" }}
                     />
                   </Box>
                 </FormikStep>
