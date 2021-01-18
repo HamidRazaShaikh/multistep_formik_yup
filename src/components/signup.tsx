@@ -10,8 +10,11 @@ import {
 } from "@material-ui/core";
 import MenuAppBar from "./nav";
 
-
 import { makeStyles } from "@material-ui/core/styles";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
 
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
@@ -44,8 +47,25 @@ type Props = {
   setUser: Function;
 };
 
+interface State {
+  showPassword: boolean;
+}
+
 const SignUp: React.FC<Props> = ({ setIsSignup, setUser }) => {
   const classes = useStyles();
+  const [show, setShow] = React.useState<State>({
+    showPassword: false,
+  });
+
+  const handleClickShowPassword = () => {
+    setShow({ ...show, showPassword: !show.showPassword });
+  };
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+  };
 
   let signUpSchema = yup.object().shape({
     firstName: yup.string().required("this feild is required."),
@@ -60,123 +80,138 @@ const SignUp: React.FC<Props> = ({ setIsSignup, setUser }) => {
 
   return (
     <div>
-              <MenuAppBar />
+      <MenuAppBar />
 
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.container}>
+          <div className={classes.paper}>
+            <Typography variant="h5"> Sign Up</Typography>
+          </div>
+          <Formik
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+            }}
+            validationSchema={signUpSchema}
+            onSubmit={(values) => {
+              setIsSignup(true);
+              const { firstName, lastName, email } = values;
+              setUser({ firstName, lastName, email });
+            }}
+          >
+            {({ errors, handleChange, touched }) => (
+              <Form className={classes.form} autoComplete="off">
+                <Grid container spacing={2}>
+                  <Grid item xs={12} sm={6}>
+                    <Field
+                      component={TextField}
+                      error={errors.firstName && touched.firstName}
+                      autoComplete="fname"
+                      name="firstName"
+                      variant="outlined"
+                      onChange={handleChange}
+                      fullWidth
+                      id="firstName"
+                      label="first name"
+                      autoFocus
+                      helperText={
+                        errors.firstName && touched.firstName
+                          ? errors.firstName
+                          : null
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <Field
+                      component={TextField}
+                      error={errors.lastName && touched.lastName}
+                      autoComplete="lname"
+                      name="lastName"
+                      variant="outlined"
+                      onChange={handleChange}
+                      fullWidth
+                      id="lastName"
+                      label="last name"
+                      helperText={
+                        errors.lastName && touched.lastName
+                          ? errors.lastName
+                          : null
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Field
+                      component={TextField}
+                      error={errors.email && touched.email}
+                      autoComplete="email"
+                      name="email"
+                      variant="outlined"
+                      onChange={handleChange}
+                      fullWidth
+                      id="email"
+                      label="email address"
+                      helperText={
+                        errors.email && touched.email ? errors.email : null
+                      }
+                    />
+                  </Grid>
 
-<Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.container}>
-        <div className={classes.paper}>
-          <Typography variant="h5"> Sign Up</Typography>
+                  <Grid item xs={12}>
+                    <Field
+                      component={TextField}
+                      error={errors.password && touched.password}
+                      autoComplete="current password"
+                      name="password"
+                      variant="outlined"
+                      onChange={handleChange}
+                      fullWidth
+                      id="password"
+                      label="password"
+                      type={show.showPassword ? "text" : "password"}
+                      helperText={
+                        errors.password && touched.password
+                          ? errors.password
+                          : null
+                      }
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {show.showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                  color="primary"
+                  style={{ margin: "10px 0 5px", backgroundColor: "#78909C" }}
+                >
+                  Sign Up
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </div>
-        <Formik
-          initialValues={{
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-          }}
-          validationSchema={signUpSchema}
-          onSubmit={(values) => {
-            setIsSignup(true);
-            const { firstName, lastName, email } = values;
-            setUser({ firstName, lastName, email });
-          }}
-        >
-          {({ errors, handleChange, touched }) => (
-            <Form className={classes.form} autoComplete="off">
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={TextField}
-                    error={errors.firstName && touched.firstName}
-                    autoComplete="fname"
-                    name="firstName"
-                    variant="outlined"
-                    onChange={handleChange}
-                    fullWidth
-                    id="firstName"
-                    label="first name"
-                    autoFocus
-                    helperText={
-                      errors.firstName && touched.firstName
-                        ? errors.firstName
-                        : null
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={TextField}
-                    error={errors.lastName && touched.lastName}
-                    autoComplete="lname"
-                    name="lastName"
-                    variant="outlined"
-                    onChange={handleChange}
-                    fullWidth
-                    id="lastName"
-                    label="last name"
-                    helperText={
-                      errors.lastName && touched.lastName
-                        ? errors.lastName
-                        : null
-                    }
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Field
-                    component={TextField}
-                    error={errors.email && touched.email}
-                    autoComplete="email"
-                    name="email"
-                    variant="outlined"
-                    onChange={handleChange}
-                    fullWidth
-                    id="email"
-                    label="email address"
-                    helperText={
-                      errors.email && touched.email ? errors.email : null
-                    }
-                  />
-                </Grid>
-
-                <Grid item xs={12}>
-                  <Field
-                    component={TextField}
-                    error={errors.password && touched.password}
-                    autoComplete="current password"
-                    name="password"
-                    variant="outlined"
-                    onChange={handleChange}
-                    fullWidth
-                    id="password"
-                    label="password"
-                    type = 'password'
-                    helperText={
-                      errors.password && touched.password
-                        ? errors.password
-                        : null
-                    }
-                  />
-                </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                color="primary"
-                style={{ margin: "10px 0 5px", backgroundColor: "#78909C" }}
-              >
-                Sign Up
-              </Button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </Container>
-
+      </Container>
     </div>
-    
   );
 };
 
