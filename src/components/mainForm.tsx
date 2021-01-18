@@ -50,6 +50,10 @@ const MainForm: React.FC<Props> = ({ userData }) => {
   const [show, setShow] = useState(false);
   const classes = useStyles();
 
+  console.log(userData);
+  console.log(data);
+
+
   return (
     <div className={classes.root}>
       <MenuAppBar />
@@ -342,6 +346,7 @@ export function FormikStepper({
   const [completed, setCompleted] = useState(false);
   const currentChild = childrenArray[step];
   const [data, setData] = useState({});
+  console.log(data);
 
   function isLastStep() {
     return step === childrenArray.length - 1;
