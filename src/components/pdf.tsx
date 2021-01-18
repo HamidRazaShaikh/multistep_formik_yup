@@ -271,7 +271,7 @@ function PDF(props: any) {
     setOpen(false);
     setOpen(true);
     return () => setOpen(false);
-  });
+  },[]);
 
   let data = props.data;
 
