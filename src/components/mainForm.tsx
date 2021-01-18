@@ -142,6 +142,7 @@ const MainForm: React.FC<Props> = ({ userData }) => {
                     />
                   </Box>
                   <Box paddingBottom={2}>
+                 
                     <Field
                       name="employed"
                       type="checkbox"
@@ -397,8 +398,12 @@ export function FormikStepper({
                   />
                 </ThemeProvider>
               </Hidden>
-
+              <ThemeProvider theme={theme}>
               {currentChild}
+
+              </ThemeProvider>
+
+             
               <Grid container spacing={3}>
                 {step > 0 ? (
                   <Grid item xs={4}>
