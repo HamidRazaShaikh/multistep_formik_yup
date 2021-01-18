@@ -369,7 +369,7 @@ export function FormikStepper({
           }}
         >
           {({ isSubmitting }) => (
-            <Form>
+            <Form autoComplete="off">
               <Hidden xsDown>
                 <ThemeProvider theme={theme}>
                   <Stepper alternativeLabel activeStep={step}>
