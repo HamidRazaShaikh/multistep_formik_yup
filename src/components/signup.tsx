@@ -151,6 +151,7 @@ const SignUp: React.FC<Props> = ({ setIsSignup, setUser }) => {
                     fullWidth
                     id="password"
                     label="password"
+                    type = 'password'
                     helperText={
                       errors.password && touched.password
                         ? errors.password
